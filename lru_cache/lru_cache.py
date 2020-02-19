@@ -13,7 +13,6 @@ class LRUCache:
         self.limit = limit
         self.storage = DoublyLinkedList()
 
-
     """
     Retrieves the value associated with the given key. Also
     needs to move the key-value pair to the end of the order
@@ -44,5 +43,10 @@ class LRUCache:
             self.storage.move_to_front(self.cache[key])
         else:
             if self.storage.__len__() < self.limit:
+                self.storage.add_to_head({key: value})
+                self.cache[key] = self.storage.head
+            else:
+                take_key_out = list(self.storage.remove_from_tail().keys())[0]
+                self.cache.pop(take_key_out)
                 self.storage.add_to_head({key: value})
                 self.cache[key] = self.storage.head

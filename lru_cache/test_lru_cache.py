@@ -1,7 +1,6 @@
 import unittest
 from lru_cache import LRUCache
 
-
 class CacheTests(unittest.TestCase):
     def setUp(self):
         self.cache = LRUCache(3)
