@@ -3,7 +3,6 @@ sys.path.append('../queue_and_stack')
 from dll_queue import Queue
 from dll_stack import Stack
 
-
 class BinarySearchTree:
     def __init__(self, value):
         self.value = value
@@ -38,25 +37,61 @@ class BinarySearchTree:
 
     # Return the maximum value found in the tree
     def get_max(self):
-        while self.right:
-            current=self.right
+        # METHOD 1 - ITERATIVE
+        current = self
+        while current.right:
+            current=current.right
         return current.value
+
+        #  METHOD 2 - RECURSIVE
+        # Base Case
+        if self.right is None:
+            return self.value
+        # Recursive Case
+        else:
+            return self.right.get_max()
 
     # Call the function `cb` on the value of each node
     # You may use a recursive or iterative approach
     def for_each(self, cb):
+        # calling function on current node
         cb(self.value)
+
+        # recursive case:
+        if self.left:
+            self.left.for_each(cb)
         if self.right:
             self.right.for_each(cb)
-        elif self.left:
-            self.left.for_each(cb)
 
+    # Alternative iternative for_each - example only and not being used
+    def iter_for_each(self, cb):
+        if self is None:
+            print("BST is empty")
+            return
+        cb(self.value)
+        while len(stack) > 0:
+            # pop top of stack
+            # cb (top of stack)
+            # go left ... if left child, push onto stack
+            # go right ... if right child, push onto stack
+            pass
 
     # DAY 2 Project -----------------------
 
     # Print all the values in order from low to high
     # Hint:  Use a recursive, depth first traversal
     def in_order_print(self, node):
+        # Left, Root, Right
+        
+        # Base Case
+        if node is None:
+            return
+
+        # Recursive Case
+        self.in_order_print(node.left)
+        print(node.value)
+        self.in_order_print(node.right)
+
         pass
 
     # Print the value of every node, starting with the given node,
